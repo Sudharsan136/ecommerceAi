@@ -29,8 +29,10 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// MongoDB Connection
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/ecommerce')
+// MongoDB Connection — trim to remove any accidental whitespace/newlines from env vars
+const mongoUri = (process.env.MONGO_URI || 'mongodb://localhost:27017/ecommerce').trim();
+console.log('Connecting to MongoDB, URI starts with:', mongoUri.substring(0, 20) + '...');
+mongoose.connect(mongoUri)
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Could not connect to MongoDB', err));
 
