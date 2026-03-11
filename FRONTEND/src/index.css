@@ -1,0 +1,51 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+@theme {
+  --font-serif: "Playfair Display", serif;
+}
+
+@layer base {
+  body {
+    background: #f8f7f5;
+    color: #1a1a1a;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+/* Neo glow utilities */
+.neo-glow-cyan {
+  text-shadow: 0 0 10px #00f5ff, 0 0 20px #00f5ff40;
+}
+.neo-glow-pink {
+  text-shadow: 0 0 10px #ff2d78, 0 0 20px #ff2d7840;
+}
+
+/* Spinner animation */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Neon border pulse */
+@keyframes neon-pulse {
+  0%, 100% { box-shadow: 0 0 10px #00f5ff40; }
+  50% { box-shadow: 0 0 25px #00f5ff80, 0 0 50px #00f5ff30; }
+}
+
+.luxury-link {
+  color: rgba(255,255,255,0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 10px;
+  text-decoration: none;
+  transition: color 0.2s, text-shadow 0.2s;
+}
+.luxury-link:hover {
+  color: #00f5ff;
+  text-shadow: 0 0 8px #00f5ff;
+}
