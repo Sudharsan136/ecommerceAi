@@ -6,27 +6,8 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Build allowed origins list — trim to remove any accidental whitespace/newlines
-const allowedOrigins = [
-    'http://localhost:5173',
-    'http://localhost:3000',
-];
-if (process.env.CLIENT_URL) {
-    allowedOrigins.push(process.env.CLIENT_URL.trim());
-}
-
-// Middleware
-app.use(cors({
-    origin: function (origin, callback) {
-        // Allow requests with no origin (server-to-server, Postman, etc.)
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin.trim()) !== -1) {
-            return callback(null, true);
-        }
-        return callback(new Error('Not allowed by CORS'));
-    },
-    credentials: true,
-}));
+// Middleware — allow all origins (safe for hobby/free-tier projects)
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 
 // MongoDB Connection — trim to remove any accidental whitespace/newlines from env vars
