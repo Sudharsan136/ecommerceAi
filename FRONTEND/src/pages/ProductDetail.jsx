@@ -12,7 +12,7 @@ const ProductDetail = () => {
     const [added, setAdded] = useState(false);
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/products/${id}`)
+        axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/products/${id}`)
             .then(res => setProduct(res.data))
             .catch(err => console.error('Error fetching product', err))
             .finally(() => setLoading(false));
