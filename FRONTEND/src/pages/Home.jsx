@@ -21,6 +21,7 @@ const Home = () => {
     const [loading, setLoading] = useState(true);
     const [addedId, setAddedId] = useState(null);
 
+    useEffect(() => {
         axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/products`)
             .then(res => { setFeatured(res.data); setLoading(false); })
             .catch(() => setLoading(false));
