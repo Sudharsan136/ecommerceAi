@@ -22,7 +22,7 @@ const Products = () => {
     const { addToCart } = useCart();
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:5000/api/products')
+        axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/products`)
             .then(res => { setProducts(res.data); setLoading(false); })
             .catch(() => setLoading(false));
     }, []);
