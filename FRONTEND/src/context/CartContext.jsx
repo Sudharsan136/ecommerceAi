@@ -1,18 +1,37 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useAuth } from './AuthContext'; // Import useAuth to get the current user
 
 const CartContext = createContext();
 
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
-    const [cartItems, setCartItems] = useState(() => {
-        const savedCart = localStorage.getItem('cart');
-        return savedCart ? JSON.parse(savedCart) : [];
-    });
+    const { user } = useAuth(); // Get the currently logged-in user
+    const [cartItems, setCartItems] = useState([]);
 
+    // Optional helper to get storage key
+    const getCartKey = () => (user ? `cart_${user.uid}` : 'cart_guest');
+
+    // Whenever the user changes (login or logout), load THEIR specific cart
     useEffect(() => {
-        localStorage.setItem('cart', JSON.stringify(cartItems));
-    }, [cartItems]);
+        if (!user) {
+            setCartItems([]); // If nobody is logged in, clear the active cart array
+            return;
+        }
+        const savedCart = localStorage.getItem(getCartKey());
+        if (savedCart) {
+            setCartItems(JSON.parse(savedCart));
+        } else {
+            setCartItems([]); // Reset if they don't have a saved cart
+        }
+    }, [user]); // Re-run whenever user changes
+
+    // Whenever cartItems change, immediately save it to THIS user's local storage key
+    useEffect(() => {
+        if (user) {
+            localStorage.setItem(getCartKey(), JSON.stringify(cartItems));
+        }
+    }, [cartItems, user]);
 
     const addToCart = (product) => {
         setCartItems((prevItems) => {
