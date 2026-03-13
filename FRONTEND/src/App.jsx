@@ -26,25 +26,27 @@ function App() {
             <Route
               path="/*"
               element={
-                <div className="bg-stone-50 min-h-screen">
-                  <Navbar />
-                  <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/products" element={<Products />} />
-                    <Route path="/products/:id" element={<ProductDetail />} />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/contact" element={<Contact />} />
-                    <Route
-                      path="/admin"
-                      element={
-                        <ProtectedRoute>
-                          <Admin />
-                        </ProtectedRoute>
-                      }
-                    />
-                  </Routes>
-                  <Footer />
-                </div>
+                <GlobalAuthGuard>
+                  <div className="bg-stone-50 min-h-screen">
+                    <Navbar />
+                    <Routes>
+                      <Route path="/" element={<Home />} />
+                      <Route path="/products" element={<Products />} />
+                      <Route path="/products/:id" element={<ProductDetail />} />
+                      <Route path="/cart" element={<Cart />} />
+                      <Route path="/contact" element={<Contact />} />
+                      <Route
+                        path="/admin"
+                        element={
+                          <ProtectedRoute>
+                            <Admin />
+                          </ProtectedRoute>
+                        }
+                      />
+                    </Routes>
+                    <Footer />
+                  </div>
+                </GlobalAuthGuard>
               }
             />
           </Routes>
