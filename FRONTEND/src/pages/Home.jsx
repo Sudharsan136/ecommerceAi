@@ -22,7 +22,7 @@ const Home = () => {
     const [addedId, setAddedId] = useState(null);
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:5000/api/products')
+                axios.get("https://ecommerceeai-2xyt.onrender.com/api/products")
             .then(res => { setFeatured(res.data); setLoading(false); })
             .catch(() => setLoading(false));
     }, []);
